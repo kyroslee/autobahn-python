@@ -112,12 +112,12 @@ class Pattern(object):
     URI_TYPE_PREFIX = 2
     URI_TYPE_WILDCARD = 3
 
-    _URI_COMPONENT = re.compile(r"^[a-z0-9][a-z0-9_\-]*$")
+    _URI_COMPONENT = re.compile(r"^[a-zA-Z0-9][a-zA-Z0-9_\-]*$")
     """
     Compiled regular expression for a WAMP URI component.
     """
 
-    _URI_NAMED_COMPONENT = re.compile(r"^<([a-z][a-z0-9_]*)>$")
+    _URI_NAMED_COMPONENT = re.compile(r"^<([a-zA-Z][a-zA-Z0-9_]*)>$")
     """
     Compiled regular expression for a named WAMP URI component.
 
@@ -125,7 +125,7 @@ class Pattern(object):
         This pattern is stricter than a general WAMP URI component since a valid Python identifier is required.
     """
 
-    _URI_NAMED_CONVERTED_COMPONENT = re.compile(r"^<([a-z][a-z0-9_]*):([a-z]*)>$")
+    _URI_NAMED_CONVERTED_COMPONENT = re.compile(r"^<([a-zA-Z][a-zA-Z0-9_]*):([a-zA-Z]*)>$")
     """
     Compiled regular expression for a named and type-converted WAMP URI component.
 
@@ -186,7 +186,7 @@ class Pattern(object):
                     # should not arrive here
                     raise Exception("logic error")
 
-                pl.append("(?P<{0}>[a-z0-9_]+)".format(name))
+                pl.append("(?P<{0}>[a-zA-Z0-9_]+)".format(name))
                 group_count += 1
                 continue
 
@@ -197,7 +197,7 @@ class Pattern(object):
                     raise Exception("invalid URI")
 
                 nc[name] = str
-                pl.append("(?P<{0}>[a-z0-9_]+)".format(name))
+                pl.append("(?P<{0}>[a-zA-Z0-9_]+)".format(name))
                 group_count += 1
                 continue
 
@@ -208,7 +208,7 @@ class Pattern(object):
 
             if component == '':
                 group_count += 1
-                pl.append(r"([a-z0-9][a-z0-9_\-]*)")
+                pl.append(r"([a-zA-Z0-9][a-zA-Z0-9_\-]*)")
                 nc[group_count] = str
                 continue
 
